@@ -1,0 +1,38 @@
+To efficiently manage and update the daily likes count, for millions of users across than 150 countries, careful planning and a designed architecture are essential. Let me explain in terms how we can tackle this task:
+
+Managing User Data:
+First store user information in a database that includes their ID, number of likes and their respective time zone. Make sure to structure this data in a way that allows for retrieval and updates.
+
+Handling Time Zones:
+When users sign up ask them to provide their location or time zone. Store this information alongside their profiles so that you can calculate the time for resetting likes.
+
+Likes Reset Process:
+Set up a scheduled job that runs globally at a fixed time like 12;00 pm UTC. This job should iterate through all users. Calculate the local time for resetting likes based on each users specific time zone.
+
+Distributed Processing:
+Given the number of users involved its crucial to distribute the processing load. You can divide users into groups based on factors like their time zones or other criteria. This helps avoid overwhelming the system with a load at once.
+
+Caching:
+Implement caching mechanisms to store accessed data such, as user profiles and remaining counts of likes.
+This helps to lessen the burden, on the database leading to faster response times.
+
+Implementing rate limiting and throttling can be beneficial, during the Likes reset to prevent overwhelming the system. This approach ensures that the reset process does not negatively impact the performance of the system.
+Asynchronous Processing:
+Use asynchronous processing to handle Likes reset for each user. This allows the system to continue processing other tasks without waiting for each individual Likes reset operation to complete.
+
+Notification System:
+Consider implementing a notification system to inform users when their daily Likes are refreshed. This can be done through email, in-app notifications, or other communication channels.
+
+Monitoring and Logging:
+Implement robust monitoring and logging to keep track of the Likes reset process. This helps identify any issues or bottlenecks and provides insights into system performance.
+
+Scaling and Load Balancing:
+As your user base grows, ensure your infrastructure is horizontally scalable. Distribute the load across multiple servers or instances to handle increased demand.
+
+Failures and Retry Mechanism:
+Prepare for failures by implementing retry mechanisms and error handling strategies. If a Likes reset fails for a user, ensure the system can recover gracefully.
+
+Testing:
+Rigorously test the Likes reset process in a staging environment before deploying to production. This includes testing scenarios involving users from different time zones and various edge cases.
+
+By combining these approaches, we can create a scalable backend logic for refreshing daily Likes for millions of users across different time zones while maintaining system reliability and performance.
